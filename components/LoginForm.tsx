@@ -117,7 +117,7 @@ export default function LoginForm() {
             data-lpignore="true"
             data-form-type="other"
             data-1p-ignore="true"
-            placeholder=""
+            placeholder={t("login.phonePlaceholder")}
             className="w-full h-11 px-3.5 rounded-xl border-1.5 border-[#d0c2b0] bg-white text-base tracking-wide font-mono text-[#1A1210] focus:border-[#6F1B28] focus:ring-3 focus:ring-[#6F1B28]/12 outline-none transition-all duration-150"
             required
             disabled={status !== "idle"}
@@ -143,7 +143,7 @@ export default function LoginForm() {
             data-lpignore="true"
             data-form-type="other"
             data-1p-ignore="true"
-            placeholder=""
+            placeholder={t("login.codePlaceholder")}
             className="w-full h-11 px-3.5 rounded-xl border-1.5 border-[#d0c2b0] bg-white text-base tracking-widest font-mono text-[#1A1210] focus:border-[#6F1B28] focus:ring-3 focus:ring-[#6F1B28]/12 outline-none transition-all duration-150"
             required
             disabled={status !== "idle"}
