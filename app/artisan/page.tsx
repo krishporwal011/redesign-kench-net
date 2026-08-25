@@ -72,7 +72,7 @@ function ArtisanHome({ user }: { user: SessionUser }) {
       householdId,
       locality,
       productFamily: craft === "pottery" ? "pottery_diyas" : craft === "textile" ? "textile_scarves" : "glass_bangle",
-      size: craft === "bangles" ? bangleSize : "Standard",
+      size: bangleSize,
       colourFamily,
       finish: "plain_glossy",
       grade,
@@ -103,7 +103,7 @@ function ArtisanHome({ user }: { user: SessionUser }) {
       demandId: craft === "pottery" ? "DEM-POT-01" : "DEM-TEX-01",
       buyerName: "Wholesale Buyer",
       productFamily: craft === "pottery" ? "pottery" : "textile",
-      size: craft === "bangles" ? "2-6" : "Standard",
+      size: "2-6",
       colourFamily,
       grade: "A",
       quantityNeeded: craft === "pottery" ? 2500 : 1200,
@@ -124,7 +124,7 @@ function ArtisanHome({ user }: { user: SessionUser }) {
       householdId: user.householdId || "HH-01",
       locality: "Ramnagar",
       productFamily: craft === "pottery" ? "pottery_diyas" : craft === "textile" ? "textile_scarves" : "glass_bangle",
-      size: craft === "bangles" ? "2-6" : "Standard",
+      size: "2-6",
       colourFamily,
       finish: "plain_glossy",
       grade: "A",
@@ -218,28 +218,26 @@ function ArtisanHome({ user }: { user: SessionUser }) {
               </div>
             </div>
 
-            {/* Bangle Size Selector (Visible for Glass Bangles) */}
-            {craft === "bangles" && (
-              <div className="mt-4">
-                <label className="block text-xs font-bold text-[#1a1210] uppercase tracking-wider mb-1.5">
-                  {hi ? "चूड़ी की साइज़ (Bangle Size)" : "Bangle Size"}
-                </label>
-                <div className="grid grid-cols-4 gap-2 bg-[#faf0e4] p-1 rounded-xl border border-[#e4d9c9]">
-                  {["2-6", "2-4", "2-2", "2-8"].map((sz) => (
-                    <button
-                      key={sz}
-                      type="button"
-                      onClick={() => setBangleSize(sz)}
-                      className={`py-2 rounded-lg text-xs font-mono font-extrabold transition min-h-[40px] ${
-                        bangleSize === sz ? "bg-[#790f26] text-white shadow-xs" : "text-[#523a2f] hover:bg-white/50"
-                      }`}
-                    >
-                      {sz}
-                    </button>
-                  ))}
-                </div>
+            {/* Size Selector (2-4, 2-6, 2-8, etc.) */}
+            <div className="mt-4">
+              <p className="text-xs font-bold text-[#1a1210] uppercase tracking-wider mb-1.5">
+                {hi ? "साइज़ (Size)" : "Size"}
+              </p>
+              <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 bg-[#faf0e4] p-1 rounded-xl border border-[#e4d9c9]">
+                {["2-4", "2-6", "2-8", "2-2"].map((sz) => (
+                  <button
+                    key={sz}
+                    type="button"
+                    onClick={() => setBangleSize(sz)}
+                    className={`py-2.5 rounded-lg text-xs font-mono font-extrabold transition min-h-[44px] cursor-pointer ${
+                      bangleSize === sz ? "bg-[#790f26] text-white shadow-xs" : "text-[#523a2f] hover:bg-white/50"
+                    }`}
+                  >
+                    {sz}
+                  </button>
+                ))}
               </div>
-            )}
+            </div>
 
             {/* Quantity Input */}
             <div className="mt-4">
@@ -276,7 +274,7 @@ function ArtisanHome({ user }: { user: SessionUser }) {
 
             {saved ? (
               <p className="mt-4 text-xs font-bold text-[#790f26] bg-[#fdf0f0] p-3 rounded-xl border border-[#790f26]/20">
-                ✅ Saved: {pileTitle(saved.colour, saved.qty, language)} {craft === "bangles" ? `· Size ${saved.size}` : ""}. Buyer can see it.
+                ✅ Saved: {pileTitle(saved.colour, saved.qty, language)} · Size {saved.size}. Buyer can see it.
               </p>
             ) : null}
 
@@ -318,7 +316,7 @@ function ArtisanHome({ user }: { user: SessionUser }) {
                         {hi ? "टुकड़े" : "pcs"}
                       </p>
                       <p className="text-xs text-[#785d4f] mt-0.5">
-                        {craft === "bangles" ? `Size ${d.size} · ` : ""}Grade {d.grade} · {d.locality}
+                        Size {d.size} · Grade {d.grade} · {d.locality}
                       </p>
                     </div>
                   </div>
@@ -362,7 +360,7 @@ function ArtisanHome({ user }: { user: SessionUser }) {
                         {colourWords(pile.colourFamily, language)} · {pile.declaredQty.toLocaleString("en-IN")} pcs
                       </p>
                       <p className="text-[11px] text-[#785d4f] font-semibold mt-0.5">
-                        {craft === "bangles" ? `Size ${pile.size} · ` : ""}Grade {pile.grade}
+                        Size {pile.size} · Grade {pile.grade}
                       </p>
                     </div>
                   </div>
