@@ -1,0 +1,77 @@
+COPY-PASTE WHATSAPP MESSAGES
+
+GitHub: https://github.com/lakshay196/kanch-net
+Files live in the repo folder team-guide/ and also on your computer.
+
+--------------------------------------------------
+MESSAGE 1 — WHOLE GROUP
+--------------------------------------------------
+
+We are making Kanch-Net. Home workers make small piles of bangles. Buyer wants one big matching pile. App helps combine matching piles, check them, show fake money. Not real UPI.
+
+I use Cursor.
+A, B, C use ChatGPT (teacher) + Antigravity (code) on my GitHub:
+https://github.com/lakshay196/kanch-net
+
+I will send you these files:
+- 01-EVERYONE-READ-THIS
+- 08-KANCH-NET-PRD (what we are building)
+- 09-CHATGPT-ZERO-SETUP (install GitHub + Antigravity, every click)
+- YOUR role file
+
+Open ChatGPT. Upload ALL of those files. Open 09, copy the block PASTE INTO CHATGPT to END PASTE, paste it, then write: I am Person A (or B or C).
+
+ChatGPT will teach one click at a time. Reply DONE after each step. Screenshot if stuck.
+Do not make a new project.
+Stuck 20 minutes = message me.
+
+--------------------------------------------------
+MESSAGE 2 — BUILDERS AFTER INVITE
+--------------------------------------------------
+
+1) Make a GitHub account if needed
+2) Accept my invite in email (github.com/lakshay196/kanch-net)
+3) ChatGPT → upload 01, 08-PRD, 09-SETUP, YOUR role
+4) Paste the big block from 09
+5) Extra line: I am Person A / B / C
+6) Follow ChatGPT: clone THIS repo, open kanch-net in Antigravity, pull, then code
+7) After setup: YELLOW BOX 2 in your role, then Antigravity box
+
+Do not create a new empty app.
+
+--------------------------------------------------
+MESSAGE 3 — PERSON A
+--------------------------------------------------
+
+You are Person A. Files: 01, 08-PRD, 09-SETUP, 03-ROLE-A-PHONE.
+Only job: family phone screens. Mic extra.
+
+--------------------------------------------------
+MESSAGE 4 — PERSON B
+--------------------------------------------------
+
+You are Person B. Files: 01, 08-PRD, 09-SETUP, 04-ROLE-B-MATCHING.
+Only job: IN / OUT + reason.
+
+--------------------------------------------------
+MESSAGE 5 — PERSON C
+--------------------------------------------------
+
+You are Person C. Files: 01, 08-PRD, 09-SETUP, 05-ROLE-C-PICKUP-AND-MONEY.
+Pickup, quality, fake money. Type B-001.
+
+--------------------------------------------------
+MESSAGE 6 — PRESENTATION PAIR
+--------------------------------------------------
+
+You two: 01, 08-PRD, 06-ROLE-PRESENTATION.
+ChatGPT only. Upload those 3 files. Paste the yellow box in 06.
+No Antigravity. Do not write that we do real payments.
+
+--------------------------------------------------
+MESSAGE 7 — IF SOMEONE PANICS
+--------------------------------------------------
+
+You do not need to know computer theory.
+Upload the files. Paste 09. Let ChatGPT tell you the next ONE click.
+Screenshot me.

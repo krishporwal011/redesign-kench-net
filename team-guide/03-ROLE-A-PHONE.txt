@@ -1,0 +1,100 @@
+KANCH-NET — YOUR ROLE: PERSON A (PHONE)
+You make the home-worker phone screens. That is your whole job.
+
+Lead uses Cursor. You use ChatGPT (teacher) + Antigravity (code).
+You work in the lead’s GitHub folder. You do not make a new app.
+
+GitHub: https://github.com/lakshay196/kanch-net
+
+--------------------------------------------------
+YOUR JOB
+--------------------------------------------------
+
+Big buttons. Hindi is okay.
+Type or talk: product, size, colour, how many, ready date.
+CONFIRM: “I heard … Is this right?” Tap YES.
+Then My piles, name like B-007.
+
+You are not making matching, pickup, or money.
+
+--------------------------------------------------
+WHO HELPS YOU / WHO YOU HELP
+--------------------------------------------------
+
+Lead: website and GitHub already exist.
+You help Person B later: new piles from Confirm.
+You do not wait for B or C.
+
+--------------------------------------------------
+DONE WHEN
+--------------------------------------------------
+
+Login 9000000001 / 1234, add a pile, see it in My piles.
+If mic is hard, a form is enough.
+
+--------------------------------------------------
+EASY VERSION
+--------------------------------------------------
+
+Skip microphone. Form + confirm + list.
+
+--------------------------------------------------
+HOW TO START (zero level)
+--------------------------------------------------
+
+1. Upload 4 files into ChatGPT (paperclip):
+   - 01-EVERYONE-READ-THIS.txt
+   - 08-KANCH-NET-PRD.txt
+   - 09-CHATGPT-ZERO-SETUP.txt
+   - this file (03-ROLE-A-PHONE.txt)
+2. Open 09. Copy from >>> PASTE INTO CHATGPT <<< to >>> END PASTE <<<
+3. Paste into ChatGPT.
+4. Send one more line: I am Person A. I only build app/phone.
+5. Follow ChatGPT. One click. Then reply DONE. Send screenshots if stuck.
+6. When kanch-net is open in Antigravity and you can log in at localhost:3000,
+   paste YELLOW BOX 2 below into the SAME ChatGPT chat.
+7. Then paste the ANTIGRAVITY BOX into Antigravity.
+
+If Antigravity tries to build the whole app, say: NO. Only app/phone.
+
+--------------------------------------------------
+YELLOW BOX 2 — PASTE IN CHATGPT AFTER SETUP IS DONE
+--------------------------------------------------
+
+I am Person A. Setup is done. kanch-net is open in Antigravity. I am still a beginner.
+
+You already have the PRD and my role. I make ONLY the home-worker phone screens in app/phone.
+
+Be my teacher:
+1) Next 1 hour in very simple steps. One step at a time. Wait for DONE.
+2) What I should paste into Antigravity
+3) Easy version first: form + confirm + my piles. Microphone later
+4) Do not let me build matching, pickup, QR, or money
+5) If a word is hard, explain or say Antigravity can do it
+6) Remind me: pull first, then code, then push only app/phone
+7) Follow the PRD limits: fake demo, no Aadhaar, no real payment
+
+--------------------------------------------------
+ANTIGRAVITY BOX — PASTE ONLY AFTER KANCH-NET FOLDER IS OPEN
+--------------------------------------------------
+
+I am Person A. This folder is the team GitHub project kanch-net. Do not create a new project.
+
+Work ONLY in app/phone. Do not edit app/matching, app/pickup, app/money, login, or data/starter-list.json.
+
+Make a simple mobile-looking page:
+- Huge button: बोलो / Speak
+- If speak fails, a form: product, size, colour, quantity, ready date
+- Confirm screen. User must tap Confirm. Do not save without confirm.
+- My piles list: name, quantity, status
+
+Word mapping:
+- "lal chudi" / "लाल चूड़ी" = red glass bangle
+- "neeli chudi" / "नीली चूड़ी" = blue glass bangle
+
+Use the same field names as data/starter-list.json. Do not invent new names.
+9000000001 = family 1, 0002 = family 2, 0003 = family 3.
+
+If microphone is annoying, skip it and keep the form.
+Hindi-first, big buttons.
+Before you edit: tell me to pull. After: tell me the exact GitHub Desktop clicks or git commands to push only app/phone.

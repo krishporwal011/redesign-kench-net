@@ -1,0 +1,59 @@
+KANCH-NET — FOR YOU (TEAM LEAD)
+Read this first. Do not give this file to the whole group.
+
+YOU use Cursor. You do NOT use Antigravity.
+A, B, C use ChatGPT + Antigravity.
+Presentation pair use ChatGPT only.
+
+--------------------------------------------------
+WHAT YOU SEND EACH BUILDER (A, B, C)
+--------------------------------------------------
+
+Send these 4 files (WhatsApp / Drive) PLUS the GitHub link:
+
+1) 01-EVERYONE-READ-THIS.txt
+2) 08-KANCH-NET-PRD.txt
+3) 09-CHATGPT-ZERO-SETUP.txt
+4) THEIR role file (03 or 04 or 05)
+
+GitHub: https://github.com/lakshay196/kanch-net
+
+Tell them:
+1. Make a ChatGPT chat.
+2. Upload all 4 files (paperclip).
+3. Open 09. Copy from PASTE INTO CHATGPT to END PASTE. Paste it.
+4. Add one extra line: I am Person A   (or B or C).
+5. Follow ChatGPT one click at a time. Send screenshots.
+6. After setup, paste YELLOW BOX 2 from their role, then the Antigravity box.
+
+Presentation pair: 01 + 08-PRD + 06. No 09. No Antigravity.
+
+Copy WhatsApp texts from 07-WHATSAPP-MESSAGES.txt
+
+--------------------------------------------------
+WHAT THE APP IS
+--------------------------------------------------
+
+Home workers in Firozabad make small piles of glass bangles.
+A big buyer wants one huge pile that all looks the same.
+Our app writes piles down, keeps matching ones, checks them, shows FAKE money.
+
+--------------------------------------------------
+GITHUB
+--------------------------------------------------
+
+Invite A, B, C: github.com/lakshay196/kanch-net → Settings → Collaborators.
+
+If someone fails Git twice: they zip their folder and send you.
+
+--------------------------------------------------
+DEMO DONE WHEN
+--------------------------------------------------
+
+Login 9000000001 / 1234
+Family adds a red pile
+Blue pile is out, with a reason
+Pickup + some rejected
+Fake money pays accepted pieces only, SIMULATED banner
+
+Never promise real UPI, Aadhaar, or paying everyone from 25% booking.

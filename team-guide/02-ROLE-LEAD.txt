@@ -1,0 +1,12 @@
+KANCH-NET — YOUR ROLE: LEAD
+You use CURSOR. Teammates use ChatGPT + Antigravity.
+
+Send builders 4 files: 01, 08-PRD, 09-SETUP, their role.
+GitHub: https://github.com/lakshay196/kanch-net
+
+Invite: Settings → Collaborators.
+
+WhatsApp after invite (also in 07):
+"Upload 01, 08-PRD, 09-SETUP, and YOUR role into ChatGPT. Paste the big block inside 09. Then write: I am Person A (or B or C). GitHub: https://github.com/lakshay196/kanch-net"
+
+You do not use Antigravity. Do not let them build a second website.

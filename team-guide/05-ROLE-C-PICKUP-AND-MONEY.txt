@@ -1,0 +1,105 @@
+KANCH-NET — YOUR ROLE: PERSON C (PICKUP + FAKE MONEY)
+You make pickup, quality check, and the fake money page.
+
+Lead uses Cursor. You use ChatGPT (teacher) + Antigravity (code).
+You work in the lead’s GitHub folder. You do not make a new app.
+
+GitHub: https://github.com/lakshay196/kanch-net
+
+--------------------------------------------------
+YOUR JOB
+--------------------------------------------------
+
+Pickup: type B-001, collected quantity, ok or damaged.
+Quality: accepted / rejected / damaged + reason (broken, wrong colour, …).
+Fake money: table. Only accepted pieces × 8 rupees, then 5% fee.
+Giant banner: SIMULATED — NOT REAL MONEY
+No GPay-looking Pay button.
+
+--------------------------------------------------
+WHO HELPS YOU / WHO YOU HELP
+--------------------------------------------------
+
+Lead: pile names already exist.
+Person B later: which piles are in the order.
+You help the demo: broken pieces are not paid.
+You do not wait. Use the starter list today.
+
+--------------------------------------------------
+DONE WHEN
+--------------------------------------------------
+
+One pile: written down → picked up → accepted/rejected, and money uses accepted only.
+Example: 200 declared, 180 accepted → pay 180.
+
+--------------------------------------------------
+EASY VERSION
+--------------------------------------------------
+
+No camera. Type B-001. Two forms + one table.
+
+--------------------------------------------------
+HOW TO START (zero level)
+--------------------------------------------------
+
+1. Upload 4 files into ChatGPT (paperclip):
+   - 01-EVERYONE-READ-THIS.txt
+   - 08-KANCH-NET-PRD.txt
+   - 09-CHATGPT-ZERO-SETUP.txt
+   - this file (05-ROLE-C-PICKUP-AND-MONEY.txt)
+2. Open 09. Copy from >>> PASTE INTO CHATGPT <<< to >>> END PASTE <<<
+3. Paste into ChatGPT.
+4. Send one more line: I am Person C. I only build app/pickup and app/money.
+5. Follow ChatGPT. One click. Then reply DONE. Send screenshots if stuck.
+6. When kanch-net is open in Antigravity, paste YELLOW BOX 2 below.
+7. Then paste the ANTIGRAVITY BOX into Antigravity.
+
+If Antigravity tries to build the whole app, say: NO. Only pickup and money.
+
+--------------------------------------------------
+YELLOW BOX 2 — PASTE IN CHATGPT AFTER SETUP IS DONE
+--------------------------------------------------
+
+I am Person C. Setup is done. kanch-net is open in Antigravity. I am still a beginner.
+
+You already have the PRD and my role. I make pickup, quality, and fake money in app/pickup and app/money.
+
+Please be my teacher:
+1) Small steps. One step, then wait for DONE
+2) What to paste into Antigravity
+3) Easy version: type pile name, no camera
+4) Money = accepted × 8, then 5% fee. Rejected = 0. Never use declared quantity for money
+5) Do not let me build voice or matching
+6) Remind me: pull first, then push only app/pickup and app/money
+7) Follow the PRD: SIMULATED money, no UPI, booking 25% does not pay everyone
+
+--------------------------------------------------
+ANTIGRAVITY BOX — PASTE ONLY AFTER KANCH-NET FOLDER IS OPEN
+--------------------------------------------------
+
+I am Person C. This folder is the team GitHub project kanch-net. Do not create a new project.
+
+Work ONLY in app/pickup and app/money. Do not edit phone, matching, login, or data/starter-list.json.
+
+Pickup:
+- box to type batch id like B-001 (no camera required)
+- collected quantity, condition ok or damaged
+- status becomes collected
+
+Quality (can be on the same page):
+- accepted, rejected, damaged quantities
+- reasons: wrong colour, wrong size, broken, short quantity, packing, duplicate id
+
+Money page:
+- keep the SIMULATED — NOT REAL MONEY banner
+- acceptedQty * 8 = gross
+- fee = 5% of gross
+- family gets gross minus fee
+- material = 0
+- if accepted is empty, pay 0
+- NEVER pay using declared or collected quantity
+- 25% booking is only a note. It does not pay all families.
+- No UPI, no real payments.
+
+Before you edit: tell me to pull. After: tell me GitHub Desktop clicks or git commands to push only app/pickup and app/money.
+Piles B-011 and B-016 already have accepted numbers for a first demo.
