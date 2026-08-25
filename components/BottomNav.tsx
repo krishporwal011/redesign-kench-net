@@ -107,29 +107,6 @@ export default function BottomNav() {
             </Link>
           </>
         )}
-
-        {user.role === "coordinator" && (
-          <>
-            <Link
-              href="/matching"
-              className={`flex flex-col items-center gap-0.5 py-1 px-3 rounded-xl transition ${
-                pathname.startsWith("/matching") ? "text-[#9e2a1b] font-bold" : "text-[#785d4f]"
-              }`}
-            >
-              <span className="text-xl">⚡</span>
-              <span className="text-[11px]">{t("nav.matching")}</span>
-            </Link>
-            <Link
-              href="/map"
-              className={`flex flex-col items-center gap-0.5 py-1 px-3 rounded-xl transition ${
-                pathname === "/map" ? "text-[#9e2a1b] font-bold" : "text-[#785d4f]"
-              }`}
-            >
-              <span className="text-xl">🗺️</span>
-              <span className="text-[11px]">{t("nav.map")}</span>
-            </Link>
-          </>
-        )}
       </div>
     </nav>
   );

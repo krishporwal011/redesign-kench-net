@@ -92,26 +92,6 @@ export default function AppHeader() {
                     </Link>
                   </>
                 )}
-                {user.role === "coordinator" && (
-                  <>
-                    <Link
-                      href="/matching"
-                      className={`px-3 py-1.5 rounded-md text-xs font-semibold transition ${
-                        pathname === "/matching" ? "bg-white/20 text-white" : "text-white/80 hover:bg-white/10"
-                      }`}
-                    >
-                      {t("header.matchingEngine")}
-                    </Link>
-                    <Link
-                      href="/map"
-                      className={`px-3 py-1.5 rounded-md text-xs font-semibold transition ${
-                        pathname === "/map" ? "bg-white/20 text-white" : "text-white/80 hover:bg-white/10"
-                      }`}
-                    >
-                      {t("header.mandiMap")}
-                    </Link>
-                  </>
-                )}
               </nav>
             ) : null}
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { findUser, saveSession } from "@/lib/auth";
 import { useLanguage } from "@/lib/LanguageContext";
@@ -11,7 +11,6 @@ const QUICK_USERS = [
   { phone: "9000000003", code: "1234", label: "Imran (Artisan · Blue)", role: "artisan" },
   { phone: "9000000030", code: "1234", label: "Wholesale Buyer", role: "buyer" },
   { phone: "9000000010", code: "1234", label: "Collector (QC)", role: "collector" },
-  { phone: "9000000020", code: "1234", label: "Coordinator (Staff)", role: "coordinator" },
 ];
 
 export default function LoginForm() {
@@ -22,6 +21,12 @@ export default function LoginForm() {
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [pulseInputs, setPulseInputs] = useState(false);
   const { t } = useLanguage();
+
+  // Force clean empty state on component mount
+  useEffect(() => {
+    setPhone("");
+    setCode("");
+  }, []);
 
   function triggerAuth(targetPhone: string, targetCode: string) {
     setError("");
@@ -84,7 +89,7 @@ export default function LoginForm() {
         </p>
       </div>
 
-      <form onSubmit={submit} className="space-y-4">
+      <form onSubmit={submit} autoComplete="off" className="space-y-4">
         {/* Phone Number Field */}
         <div>
           <label className="block text-xs font-bold text-[#1A1210] uppercase tracking-wider mb-1.5">
@@ -93,10 +98,14 @@ export default function LoginForm() {
           <motion.input
             animate={pulseInputs ? { scale: [1, 1.02, 1], backgroundColor: ["#FCF8F5", "#FBF7F1", "#FCF8F5"] } : {}}
             transition={{ duration: 0.3 }}
+            id="kanch_phone_input"
+            name="kanch_phone_input_no_autofill"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             inputMode="numeric"
-            autoComplete="off"
+            autoComplete="new-password"
+            data-lpignore="true"
+            data-form-type="other"
             placeholder=""
             className="w-full h-11 px-3.5 rounded-xl border-1.5 border-[#d0c2b0] bg-white text-base tracking-wide font-mono text-[#1A1210] focus:border-[#6F1B28] focus:ring-3 focus:ring-[#6F1B28]/12 outline-none transition-all duration-150"
             required
@@ -112,11 +121,15 @@ export default function LoginForm() {
           <motion.input
             animate={pulseInputs ? { scale: [1, 1.02, 1], backgroundColor: ["#FCF8F5", "#FBF7F1", "#FCF8F5"] } : {}}
             transition={{ duration: 0.3 }}
+            id="kanch_code_input"
+            name="kanch_code_input_no_autofill"
             value={code}
             onChange={(e) => setCode(e.target.value)}
             inputMode="numeric"
             type="password"
-            autoComplete="off"
+            autoComplete="new-password"
+            data-lpignore="true"
+            data-form-type="other"
             placeholder=""
             className="w-full h-11 px-3.5 rounded-xl border-1.5 border-[#d0c2b0] bg-white text-base tracking-widest font-mono text-[#1A1210] focus:border-[#6F1B28] focus:ring-3 focus:ring-[#6F1B28]/12 outline-none transition-all duration-150"
             required

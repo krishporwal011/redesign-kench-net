@@ -51,14 +51,6 @@
       "home": "/pickup"
     },
     {
-      "phone": "9000000020",
-      "code": "1234",
-      "role": "coordinator",
-      "householdId": null,
-      "name": "Coordinator",
-      "home": "/matching"
-    },
-    {
       "phone": "9000000030",
       "code": "1234",
       "role": "buyer",
