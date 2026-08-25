@@ -172,7 +172,7 @@ export default function MatchingPage() {
                 </div>
               </div>
 
-              {/* Matching Piles Section: RESPONSIVE 2-COLUMN GRID (grid-cols-1 md:grid-cols-2 gap-4) */}
+              {/* Matching Piles Section: RESPONSIVE 2-COLUMN GRID */}
               <div className="space-y-10">
                 <div className="kn-card p-6 sm:p-8 border-[#e4d9c9] bg-[#fdf8f4]">
                   <div className="flex items-center justify-between border-b border-[#e4d9c9] pb-4 mb-6">
@@ -194,25 +194,29 @@ export default function MatchingPage() {
                             borderLeftColor: pile.status === "accepted" ? "#790f26" : "#c9aa35",
                           }}
                         >
-                          <div className="flex items-center gap-3.5">
-                            <span className="kn-dot kn-dot-red" />
-                            <div>
-                              <span className="font-mono font-bold text-[#790f26]">{pile.batchId}</span>
-                              <p className="font-bold text-[#1a1210]">
-                                {pile.declaredQty.toLocaleString("en-IN")} pcs · Size {pile.size}
-                              </p>
+                          <div className="flex-1 min-w-0 pr-3">
+                            <div className="flex items-center justify-between gap-2">
+                              <div className="flex items-center gap-2">
+                                <span className="kn-dot kn-dot-red" />
+                                <h4 className="text-base font-extrabold text-[#1a1210]">
+                                  {colourWords(pile.colourFamily, language)}
+                                </h4>
+                              </div>
+                              <span className="font-mono text-sm font-black text-[#790f26]">
+                                {pile.declaredQty.toLocaleString("en-IN")} pcs
+                              </span>
                             </div>
+                            <p className="text-xs text-[#785d4f] mt-1 pl-5">
+                              {familyName(pile.householdId, language)} · {pile.locality}
+                            </p>
                           </div>
-                          <span className="text-[#785d4f] font-medium">
-                            {familyName(pile.householdId, language)} · {pile.locality}
-                          </span>
                         </motion.div>
                       ))}
                     </AnimatePresence>
                   </div>
                 </div>
 
-                {/* Non-Matching Piles Section: RESPONSIVE 2-COLUMN GRID (grid-cols-1 md:grid-cols-2 gap-4) */}
+                {/* Non-Matching Piles Section: RESPONSIVE 2-COLUMN GRID */}
                 <div className="kn-card p-6 sm:p-8 border-[#e4d9c9] bg-[#fdf8f4]">
                   <div className="flex items-center justify-between border-b border-[#e4d9c9] pb-4 mb-6">
                     <h3 className="text-lg font-bold text-[#1a1210]">{t("matching.nonMatchingPiles")}</h3>
@@ -232,13 +236,12 @@ export default function MatchingPage() {
                           borderLeftColor: "#b92b2b",
                         }}
                       >
-                        <div>
-                          <span className="font-mono font-bold text-[#1a1210]">{pile.batchId}</span>
-                          <p className="text-red-900 font-semibold mt-0.5">{reason}</p>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-red-900 font-bold text-xs">{reason}</p>
+                          <p className="text-xs text-[#785d4f] mt-0.5">
+                            {familyName(pile.householdId, language)} · {pile.locality}
+                          </p>
                         </div>
-                        <span className="text-[#785d4f]">
-                          {familyName(pile.householdId, language)} · {pile.locality}
-                        </span>
                       </motion.div>
                     ))}
                   </div>

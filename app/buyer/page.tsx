@@ -8,7 +8,7 @@ import NeedLogin from "@/components/NeedLogin";
 import PageContainer from "@/components/PageContainer";
 import PoolCard from "@/components/PoolCard";
 import ScoreBadge from "@/components/ScoreBadge";
-import { colourWords, familyName, gradeWords, pileTitle } from "@/lib/labels";
+import { colourWords, familyName } from "@/lib/labels";
 import { useLanguage } from "@/lib/LanguageContext";
 import { matchPileToOrder } from "@/lib/match";
 import { kmFromHub, distanceLabel } from "@/lib/places";
@@ -307,7 +307,7 @@ function BuyerHome({ user }: { user: SessionUser }) {
                         <span className={`kn-dot ${d.colourFamily === "blue" ? "kn-dot-blue" : "kn-dot-red"}`} />
                         <div>
                           <p className="text-sm font-bold text-[#1a1210]">
-                            {d.quantityNeeded.toLocaleString("en-IN")} {hi ? "नग" : "pcs"} · {colourWords(d.colourFamily, language)}
+                            {colourWords(d.colourFamily, language)} · {d.quantityNeeded.toLocaleString("en-IN")} {hi ? "नग" : "pcs"}
                           </p>
                           <p className="text-xs text-[#785d4f] mt-0.5">
                             Size {d.size} · Grade {d.grade} {isSeedDemand(d.demandId) ? "· Demo Order" : ""}
@@ -334,7 +334,7 @@ function BuyerHome({ user }: { user: SessionUser }) {
             </div>
           </div>
 
-          {/* Connected Money Pool Escrow Stepper */}
+          {/* Connected Money Pool Escrow Stepper (Collapsible Dropdown, Closed by Default) */}
           {active && poolView ? (
             <PoolCard
               view={poolView}
@@ -352,7 +352,7 @@ function BuyerHome({ user }: { user: SessionUser }) {
         </div>
       </div>
 
-      {/* Matching Artisan Stock Section: RESPONSIVE 2-COLUMN GRID (grid-cols-1 md:grid-cols-2 gap-4) */}
+      {/* Matching Artisan Stock Section: RESPONSIVE 2-COLUMN GRID */}
       <div className="kn-card p-6 sm:p-8 border-[#e4d9c9] bg-[#fdf8f4] w-full">
         <div className="flex items-center justify-between border-b border-[#e4d9c9] pb-4 mb-6">
           <div>
@@ -387,20 +387,26 @@ function BuyerHome({ user }: { user: SessionUser }) {
                   borderLeftColor: "#2e7d5b",
                 }}
               >
-                <div className="flex items-center gap-3.5">
-                  <span className={`kn-dot ${pile.colourFamily === "blue" ? "kn-dot-blue" : "kn-dot-red"}`} />
-                  <div>
-                    <span className="font-mono text-xs font-bold text-[#790f26]">{pile.batchId}</span>
-                    <h4 className="text-sm font-bold text-[#1a1210]">
-                      {pileTitle(pile.colourFamily, pile.declaredQty, language)}
-                    </h4>
-                    <p className="text-xs text-[#785d4f] mt-0.5">
-                      {familyName(pile.householdId, language)} · {distanceLabel(pile.locality, language)}
-                    </p>
+                {/* Left: Product Name & Quantity separated cleanly */}
+                <div className="flex-1 min-w-0 pr-3">
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2">
+                      <span className={`kn-dot ${pile.colourFamily === "blue" ? "kn-dot-blue" : "kn-dot-red"}`} />
+                      <h4 className="text-base font-extrabold text-[#1a1210]">
+                        {colourWords(pile.colourFamily, language)}
+                      </h4>
+                    </div>
+                    <span className="font-mono text-sm font-black text-[#790f26]">
+                      {pile.declaredQty.toLocaleString("en-IN")} {hi ? "नग" : "pcs"}
+                    </span>
                   </div>
+                  <p className="text-xs text-[#785d4f] mt-1 pl-5">
+                    {familyName(pile.householdId, language)} · {distanceLabel(pile.locality, language)}
+                  </p>
                 </div>
 
-                <div className="flex items-center gap-3 shrink-0">
+                {/* Right: Score Badge & Chat CTA */}
+                <div className="flex items-center gap-2.5 shrink-0">
                   <ScoreBadge householdId={pile.householdId} lang={language} />
                   {active && (
                     <Link
