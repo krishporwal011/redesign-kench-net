@@ -89,13 +89,13 @@ function ArtisanHome({ user }: { user: SessionUser }) {
     setSaved({ colour: colourFamily, qty });
   }
 
+  // Category-reactive Demands list
   const filteredDemands = demands.filter((d) => {
     if (craft === "pottery") return d.productFamily === "pottery" || d.productFamily === "pottery_diyas";
     if (craft === "textile") return d.productFamily === "textile" || d.productFamily === "textile_scarves";
     return d.productFamily === "glass_bangle" || !d.productFamily;
   });
 
-  // Fallback demo demands if none match selected category
   const displayDemands = filteredDemands.length > 0 ? filteredDemands : [
     {
       demandId: craft === "pottery" ? "DEM-POT-01" : "DEM-TEX-01",
@@ -106,6 +106,35 @@ function ArtisanHome({ user }: { user: SessionUser }) {
       grade: "A",
       quantityNeeded: craft === "pottery" ? 2500 : 1200,
       locality: "Firozabad Mandi",
+    },
+  ];
+
+  // Category-reactive "My Piles" stock list
+  const filteredMine = mine.filter((pile) => {
+    if (craft === "pottery") return pile.productFamily === "pottery" || pile.productFamily === "pottery_diyas";
+    if (craft === "textile") return pile.productFamily === "textile" || pile.productFamily === "textile_scarves";
+    return pile.productFamily === "glass_bangle" || !pile.productFamily;
+  });
+
+  const displayMine: Pile[] = filteredMine.length > 0 ? filteredMine : [
+    {
+      batchId: craft === "pottery" ? "POT-001" : craft === "textile" ? "TEX-001" : "B-001",
+      householdId: user.householdId || "HH-01",
+      locality: "Ramnagar",
+      productFamily: craft === "pottery" ? "pottery_diyas" : craft === "textile" ? "textile_scarves" : "glass_bangle",
+      size: "Standard",
+      colourFamily,
+      finish: "plain_glossy",
+      grade: "A",
+      declaredQty: craft === "pottery" ? 600 : 350,
+      collectedQty: null,
+      acceptedQty: null,
+      rejectedQty: null,
+      damagedQty: null,
+      status: "declared",
+      rejectionReason: null,
+      readyDate: "2026-09-08",
+      spokenTerm: "stock",
     },
   ];
 
@@ -234,7 +263,7 @@ function ArtisanHome({ user }: { user: SessionUser }) {
           </section>
         </div>
 
-        {/* Right Column: Buyer Demands & Restored My Piles Section */}
+        {/* Right Column: Buyer Demands & Category-Reactive My Piles Section */}
         <div className="lg:col-span-7 space-y-6">
           {/* Buyer Demands List */}
           <section className="kn-card p-6 border-[#e4d9c9] bg-[#fdf8f4]">
@@ -279,38 +308,38 @@ function ArtisanHome({ user }: { user: SessionUser }) {
             </div>
           </section>
 
-          {/* Restored My Piles / Your Declared Stock Section */}
+          {/* Category-Reactive My Piles / Your Declared Stock Section */}
           <section className="kn-card p-6 border-[#e4d9c9] bg-[#fdf8f4]">
-            <h2 className="text-lg font-bold text-[#1a1210] border-b border-[#e4d9c9] pb-3 mb-4">
-              {t("artisan.yourStock")}
-            </h2>
+            <div className="flex items-center justify-between border-b border-[#e4d9c9] pb-3 mb-4">
+              <h2 className="text-lg font-bold text-[#1a1210]">
+                {t("artisan.yourStock")}
+              </h2>
+              <span className="kn-badge kn-badge-gold uppercase text-[10px] font-mono font-bold">
+                {craft.toUpperCase()}
+              </span>
+            </div>
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-              {mine.length === 0 ? (
-                <div className="col-span-full p-6 text-center text-[#785d4f] text-xs font-bold">
-                  {t("artisan.noneYet")}
-                </div>
-              ) : (
-                mine.map((pile) => (
-                  <div key={pile.batchId} className="p-4 rounded-xl border border-[#e4d9c9] bg-white flex items-center justify-between shadow-xs">
-                    <div className="flex items-center gap-3">
-                      <span className={`kn-dot ${pile.colourFamily === "blue" ? "kn-dot-blue" : "kn-dot-red"}`} />
-                      <div>
-                        {/* De-emphasized Bundle ID Code (B-022) */}
-                        <span className="font-mono text-[10px] text-[#785d4f] font-normal block uppercase">
-                          {pile.batchId}
-                        </span>
-                        {/* Prominent Color & Quantity Headline */}
-                        <p className="text-sm sm:text-base font-black text-[#1a1210] leading-tight">
-                          {colourWords(pile.colourFamily, language)} · {pile.declaredQty.toLocaleString("en-IN")} pcs
-                        </p>
-                      </div>
+              {displayMine.map((pile) => (
+                <div key={pile.batchId} className="p-4 rounded-xl border border-[#e4d9c9] bg-white flex items-center justify-between shadow-xs">
+                  <div className="flex items-center gap-3">
+                    <span className={`kn-dot ${pile.colourFamily === "blue" ? "kn-dot-blue" : "kn-dot-red"}`} />
+                    <div>
+                      {/* De-emphasized Bundle ID Code */}
+                      <span className="font-mono text-[10px] text-[#785d4f] font-normal block uppercase">
+                        {pile.batchId}
+                      </span>
+                      {/* Prominent Color & Quantity Headline */}
+                      <p className="text-sm sm:text-base font-black text-[#1a1210] leading-tight">
+                        {colourWords(pile.colourFamily, language)} · {pile.declaredQty.toLocaleString("en-IN")} pcs
+                      </p>
                     </div>
-                    <span className="kn-badge kn-badge-warning text-[10px] font-bold uppercase shrink-0">
-                      {pile.status}
-                    </span>
                   </div>
-                ))
-              )}
+                  <span className="kn-badge kn-badge-warning text-[10px] font-bold uppercase shrink-0">
+                    {pile.status}
+                  </span>
+                </div>
+              ))}
             </div>
           </section>
         </div>
