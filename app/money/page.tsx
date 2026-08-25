@@ -103,11 +103,11 @@ export default function MoneyPage() {
                 </p>
               </div>
 
-              {/* Pool Cards */}
-              <div className="space-y-6 max-w-3xl mx-auto">
-                {pools.map((view) => (
-                  <PoolCard key={view.demandId} view={view} lang={language} />
-                ))}
+              {/* Single Static Fully-Expanded Pool Card */}
+              <div className="max-w-3xl mx-auto">
+                {pools[0] ? (
+                  <PoolCard view={pools[0]} lang={language} />
+                ) : null}
               </div>
 
               {/* Released Payouts List */}
