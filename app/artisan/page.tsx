@@ -11,6 +11,7 @@ import { useLanguage } from "@/lib/LanguageContext";
 import { HOUSE_PLACE, distanceLabel } from "@/lib/places";
 import {
   artisanChatPile,
+  householdStockCards,
   loadDemands,
   loadPiles,
   nextBatchId,
@@ -56,6 +57,7 @@ function ArtisanHome({ user }: { user: SessionUser }) {
     return onStoreChange(refresh);
   }, []);
 
+  const mine = householdStockCards(piles, user.householdId || "");
   const chatPile = artisanChatPile(piles, user.householdId || "");
 
   function postStock() {
@@ -232,8 +234,9 @@ function ArtisanHome({ user }: { user: SessionUser }) {
           </section>
         </div>
 
-        {/* Right Column: Buyer Demands List */}
+        {/* Right Column: Buyer Demands & Restored My Piles Section */}
         <div className="lg:col-span-7 space-y-6">
+          {/* Buyer Demands List */}
           <section className="kn-card p-6 border-[#e4d9c9] bg-[#fdf8f4]">
             <h2 className="text-lg font-bold text-[#1a1210] border-b border-[#e4d9c9] pb-3 mb-4">
               {craft === "pottery"
@@ -248,7 +251,7 @@ function ArtisanHome({ user }: { user: SessionUser }) {
                   <div className="flex items-center gap-3">
                     <span className={`kn-dot ${d.colourFamily === "blue" ? "kn-dot-blue" : "kn-dot-red"}`} />
                     <div>
-                      {/* De-emphasized Bundle Code */}
+                      {/* De-emphasized Code */}
                       <span className="font-mono text-[10px] text-[#785d4f] font-normal block uppercase tracking-wider">
                         {d.demandId}
                       </span>
@@ -273,6 +276,41 @@ function ArtisanHome({ user }: { user: SessionUser }) {
                   ) : null}
                 </div>
               ))}
+            </div>
+          </section>
+
+          {/* Restored My Piles / Your Declared Stock Section */}
+          <section className="kn-card p-6 border-[#e4d9c9] bg-[#fdf8f4]">
+            <h2 className="text-lg font-bold text-[#1a1210] border-b border-[#e4d9c9] pb-3 mb-4">
+              {t("artisan.yourStock")}
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+              {mine.length === 0 ? (
+                <div className="col-span-full p-6 text-center text-[#785d4f] text-xs font-bold">
+                  {t("artisan.noneYet")}
+                </div>
+              ) : (
+                mine.map((pile) => (
+                  <div key={pile.batchId} className="p-4 rounded-xl border border-[#e4d9c9] bg-white flex items-center justify-between shadow-xs">
+                    <div className="flex items-center gap-3">
+                      <span className={`kn-dot ${pile.colourFamily === "blue" ? "kn-dot-blue" : "kn-dot-red"}`} />
+                      <div>
+                        {/* De-emphasized Bundle ID Code (B-022) */}
+                        <span className="font-mono text-[10px] text-[#785d4f] font-normal block uppercase">
+                          {pile.batchId}
+                        </span>
+                        {/* Prominent Color & Quantity Headline */}
+                        <p className="text-sm sm:text-base font-black text-[#1a1210] leading-tight">
+                          {colourWords(pile.colourFamily, language)} · {pile.declaredQty.toLocaleString("en-IN")} pcs
+                        </p>
+                      </div>
+                    </div>
+                    <span className="kn-badge kn-badge-warning text-[10px] font-bold uppercase shrink-0">
+                      {pile.status}
+                    </span>
+                  </div>
+                ))
+              )}
             </div>
           </section>
         </div>

@@ -7,11 +7,11 @@ import { findUser, saveSession } from "@/lib/auth";
 import { useLanguage } from "@/lib/LanguageContext";
 
 const QUICK_USERS = [
-  { phone: "9000000001", code: "1111", label: "Ramesh (Artisan · Red)", role: "artisan" },
-  { phone: "9000000003", code: "3333", label: "Imran (Artisan · Blue)", role: "artisan" },
-  { phone: "9000000030", code: "3030", label: "Wholesale Buyer", role: "buyer" },
-  { phone: "9000000010", code: "1010", label: "Collector (QC)", role: "collector" },
-  { phone: "9000000020", code: "2020", label: "Coordinator (Staff)", role: "coordinator" },
+  { phone: "9000000001", code: "1234", label: "Ramesh (Artisan · Red)", role: "artisan" },
+  { phone: "9000000003", code: "1234", label: "Imran (Artisan · Blue)", role: "artisan" },
+  { phone: "9000000030", code: "1234", label: "Wholesale Buyer", role: "buyer" },
+  { phone: "9000000010", code: "1234", label: "Collector (QC)", role: "collector" },
+  { phone: "9000000020", code: "1234", label: "Coordinator (Staff)", role: "coordinator" },
 ];
 
 export default function LoginForm() {
@@ -96,7 +96,7 @@ export default function LoginForm() {
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             inputMode="numeric"
-            autoComplete="tel"
+            autoComplete="off"
             placeholder=""
             className="w-full h-11 px-3.5 rounded-xl border-1.5 border-[#d0c2b0] bg-white text-base tracking-wide font-mono text-[#1A1210] focus:border-[#6F1B28] focus:ring-3 focus:ring-[#6F1B28]/12 outline-none transition-all duration-150"
             required
@@ -116,6 +116,7 @@ export default function LoginForm() {
             onChange={(e) => setCode(e.target.value)}
             inputMode="numeric"
             type="password"
+            autoComplete="off"
             placeholder=""
             className="w-full h-11 px-3.5 rounded-xl border-1.5 border-[#d0c2b0] bg-white text-base tracking-widest font-mono text-[#1A1210] focus:border-[#6F1B28] focus:ring-3 focus:ring-[#6F1B28]/12 outline-none transition-all duration-150"
             required

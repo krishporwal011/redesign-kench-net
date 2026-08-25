@@ -43,24 +43,14 @@ export default function AppHeader() {
             {user ? (
               <nav className="hidden sm:flex items-center gap-1.5 mr-2 font-sans">
                 {user.role === "artisan" && (
-                  <>
-                    <Link
-                      href="/artisan"
-                      className={`px-3 py-1.5 rounded-md text-xs font-semibold transition ${
-                        pathname === "/artisan" ? "bg-white/20 text-white" : "text-white/80 hover:bg-white/10"
-                      }`}
-                    >
-                      {t("header.home")}
-                    </Link>
-                    <Link
-                      href="/phone"
-                      className={`px-3 py-1.5 rounded-md text-xs font-semibold transition ${
-                        pathname === "/phone" ? "bg-white/20 text-white" : "text-white/80 hover:bg-white/10"
-                      }`}
-                    >
-                      {t("header.myPiles")}
-                    </Link>
-                  </>
+                  <Link
+                    href="/artisan"
+                    className={`px-3 py-1.5 rounded-md text-xs font-semibold transition ${
+                      pathname === "/artisan" ? "bg-white/20 text-white" : "text-white/80 hover:bg-white/10"
+                    }`}
+                  >
+                    {t("header.home")}
+                  </Link>
                 )}
                 {user.role === "buyer" && (
                   <>
