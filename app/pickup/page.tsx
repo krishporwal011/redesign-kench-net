@@ -221,137 +221,145 @@ export default function PickupPage() {
             <div className="p-8 text-center text-[#785d4f]">Loading Pickup QC Portal...</div>
           ) : (
             <PageContainer className="pb-28">
-              {/* Header */}
-              <div className="mb-8 border-b border-[#e4d9c9] pb-4">
-                <span className="kn-badge kn-badge-gold uppercase text-[11px]">{t("pickup.badge")}</span>
-                <h1 className="text-2xl sm:text-3xl font-extrabold text-[#1a1210] mt-1">
-                  {t("pickup.title")}
-                </h1>
-              </div>
+              {/* Centered Main Container (max-w-5xl mx-auto) */}
+              <div className="max-w-5xl mx-auto">
+                {/* Header */}
+                <div className="mb-8 border-b border-[#e4d9c9] pb-4">
+                  <span className="kn-badge kn-badge-gold uppercase text-[11px]">{t("pickup.badge")}</span>
+                  <h1 className="text-2xl sm:text-3xl font-extrabold text-[#1a1210] mt-1">
+                    {t("pickup.title")}
+                  </h1>
+                </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                {/* Left Column: Pile Selection Grid */}
-                <div className="lg:col-span-6">
-                  <div className="flex items-center justify-between mb-3">
-                    <h2 className="text-sm font-bold text-[#1a1210] uppercase tracking-wider">
-                      1. {t("pickup.selectBatch")}
-                    </h2>
-                    <span className="text-xs text-[#785d4f] font-mono">{batches.length} batches</span>
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                  {/* Left Column: Pile Selection Grid (2 columns on sm+) */}
+                  <div className="lg:col-span-6">
+                    <div className="flex items-center justify-between mb-3">
+                      <h2 className="text-sm font-bold text-[#1a1210] uppercase tracking-wider">
+                        1. {t("pickup.selectBatch")}
+                      </h2>
+                      <span className="text-xs text-[#785d4f] font-mono">{batches.length} batches</span>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      {batches.map((pile) => {
+                        const on = pile.batchId === selectedId;
+                        return (
+                          <button
+                            key={pile.batchId}
+                            type="button"
+                            onClick={() => pickPile(pile)}
+                            className={`w-full text-left p-4 rounded-xl border transition flex items-center justify-between ${
+                              on
+                                ? "border-2 border-[#790f26] bg-[#fdf0f0] shadow-md"
+                                : "border-[#e4d9c9] bg-[#fdf8f4] hover:bg-[#faf0e4]"
+                            }`}
+                          >
+                            <div className="flex items-center gap-3">
+                              <span className={`kn-dot ${pile.colourFamily === "blue" ? "kn-dot-blue" : "kn-dot-red"}`} />
+                              <div>
+                                <span className="font-mono text-xs font-bold text-[#790f26]">{pile.batchId}</span>
+                                <h4 className="text-xs font-bold text-[#1a1210]">
+                                  {familyName(pile.householdId, language)} · {pile.locality}
+                                </h4>
+                                <p className="text-[11px] text-[#785d4f]">
+                                  {colourWords(pile.colourFamily, language)} · {pile.declaredQty} pcs
+                                </p>
+                              </div>
+                            </div>
+                            <span className={`kn-badge text-[10px] ${pile.status === "accepted" ? "kn-badge-success" : "kn-badge-warning"}`}>
+                              {pile.status}
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    {batches.map((pile) => {
-                      const on = pile.batchId === selectedId;
-                      return (
-                        <button
-                          key={pile.batchId}
-                          type="button"
-                          onClick={() => pickPile(pile)}
-                          className={`w-full text-left p-4 rounded-xl border transition flex items-center justify-between ${
-                            on
-                              ? "border-2 border-[#790f26] bg-[#fdf0f0] shadow-md"
-                              : "border-[#e4d9c9] bg-[#fdf8f4] hover:bg-[#faf0e4]"
-                          }`}
-                        >
-                          <div className="flex items-center gap-3">
-                            <span className={`kn-dot ${pile.colourFamily === "blue" ? "kn-dot-blue" : "kn-dot-red"}`} />
-                            <div>
-                              <span className="font-mono text-xs font-bold text-[#790f26]">{pile.batchId}</span>
-                              <h4 className="text-xs font-bold text-[#1a1210]">
-                                {familyName(pile.householdId, language)} · {pile.locality}
-                              </h4>
-                              <p className="text-[11px] text-[#785d4f]">
-                                {colourWords(pile.colourFamily, language)} · {pile.declaredQty} pcs
-                              </p>
-                            </div>
-                          </div>
-                          <span className={`kn-badge text-[10px] ${pile.status === "accepted" ? "kn-badge-success" : "kn-badge-warning"}`}>
-                            {pile.status}
+                  {/* Right Column: QC Verification Form */}
+                  <div className="lg:col-span-6">
+                    {selected ? (
+                      <form onSubmit={handleSave} className="kn-card p-6 border-[#e4d9c9] bg-[#fdf8f4] shadow-md space-y-4">
+                        <div className="border-b border-[#e4d9c9] pb-3">
+                          <span className="text-xs font-bold text-[#785d4f] uppercase tracking-wider">
+                            2. {t("pickup.inspectTitle")}
                           </span>
+                          <h3 className="text-lg font-extrabold text-[#790f26] font-mono mt-0.5">
+                            Batch {selected.batchId} ({familyName(selected.householdId, language)})
+                          </h3>
+                        </div>
+
+                        <div>
+                          <label className="block text-xs font-bold text-[#1a1210] uppercase tracking-wider mb-1">
+                            {t("pickup.collected")}
+                          </label>
+                          <input
+                            className="kn-field text-base font-mono font-bold"
+                            inputMode="numeric"
+                            value={collectedInput}
+                            onChange={(e) => setCollectedInput(e.target.value)}
+                          />
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-3">
+                          <div>
+                            <label className="block text-xs font-bold text-emerald-950 uppercase tracking-wider mb-1">
+                              {t("pickup.good")}
+                            </label>
+                            <input
+                              className="kn-field text-base font-mono font-bold border-emerald-300 bg-emerald-50/50"
+                              inputMode="numeric"
+                              value={goodInput}
+                              onChange={(e) => setGoodInput(e.target.value)}
+                            />
+                          </div>
+
+                          <div>
+                            <label className="block text-xs font-bold text-red-900 uppercase tracking-wider mb-1">
+                              {t("pickup.damaged")}
+                            </label>
+                            <input
+                              className="kn-field text-base font-mono font-bold border-red-200 bg-red-50/50"
+                              inputMode="numeric"
+                              value={brokenInput}
+                              onChange={(e) => setBrokenInput(e.target.value)}
+                            />
+                          </div>
+                        </div>
+
+                        {error ? (
+                          <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-xs font-bold text-red-800">
+                            ⚠️ {error}
+                          </div>
+                        ) : null}
+
+                        {savedNote ? (
+                          <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-300 text-xs font-bold text-emerald-900">
+                            ✅ {savedNote}
+                          </div>
+                        ) : null}
+
+                        <button
+                          type="submit"
+                          className="kn-btn-primary w-full text-base font-bold py-3 mt-2"
+                        >
+                          {t("pickup.saveBtn")}
                         </button>
-                      );
-                    })}
+                      </form>
+                    ) : (
+                      <div className="kn-card p-6 border-[#e4d9c9] bg-[#fdf8f4] text-center text-[#785d4f] text-xs font-bold">
+                        {language === "hi" ? "बाएँ से परिवार बंडल चुनें।" : "Select a household batch from the left to verify."}
+                      </div>
+                    )}
                   </div>
                 </div>
 
-                {/* Right Column: QC Verification Form */}
-                <div className="lg:col-span-6">
-                  {selected ? (
-                    <form onSubmit={handleSave} className="kn-card p-6 border-[#e4d9c9] bg-[#fdf8f4] shadow-md space-y-4">
-                      <div className="border-b border-[#e4d9c9] pb-3">
-                        <span className="text-xs font-bold text-[#785d4f] uppercase tracking-wider">
-                          2. {t("pickup.inspectTitle")}
-                        </span>
-                        <h3 className="text-lg font-extrabold text-[#790f26] font-mono mt-0.5">
-                          Batch {selected.batchId} ({familyName(selected.householdId, language)})
-                        </h3>
-                      </div>
-
-                      <div>
-                        <label className="block text-xs font-bold text-[#1a1210] uppercase tracking-wider mb-1">
-                          {t("pickup.collected")}
-                        </label>
-                        <input
-                          className="kn-field text-base font-mono font-bold"
-                          inputMode="numeric"
-                          value={collectedInput}
-                          onChange={(e) => setCollectedInput(e.target.value)}
-                        />
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-3">
-                        <div>
-                          <label className="block text-xs font-bold text-emerald-950 uppercase tracking-wider mb-1">
-                            {t("pickup.good")}
-                          </label>
-                          <input
-                            className="kn-field text-base font-mono font-bold border-emerald-300 bg-emerald-50/50"
-                            inputMode="numeric"
-                            value={goodInput}
-                            onChange={(e) => setGoodInput(e.target.value)}
-                          />
-                        </div>
-
-                        <div>
-                          <label className="block text-xs font-bold text-red-900 uppercase tracking-wider mb-1">
-                            {t("pickup.damaged")}
-                          </label>
-                          <input
-                            className="kn-field text-base font-mono font-bold border-red-200 bg-red-50/50"
-                            inputMode="numeric"
-                            value={brokenInput}
-                            onChange={(e) => setBrokenInput(e.target.value)}
-                          />
-                        </div>
-                      </div>
-
-                      {error ? (
-                        <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-xs font-bold text-red-800">
-                          ⚠️ {error}
-                        </div>
-                      ) : null}
-
-                      {savedNote ? (
-                        <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-300 text-xs font-bold text-emerald-900">
-                          ✅ {savedNote}
-                        </div>
-                      ) : null}
-
-                      <button
-                        type="submit"
-                        className="kn-btn-primary w-full text-base font-bold py-3 mt-2"
-                      >
-                        {t("pickup.saveBtn")}
-                      </button>
-                    </form>
-                  ) : null}
-
-                  <div className="mt-6 text-center">
-                    <Link href="/money" className="kn-btn-secondary text-xs font-bold py-2.5 px-4 inline-flex items-center gap-1">
-                      <span>{language === "hi" ? "भुगतान और एस्क्रो देखें" : "View Payouts & Escrow"}</span>
-                      <span>➔</span>
-                    </Link>
-                  </div>
+                {/* Bottom Centered Action Button: View Payouts & Escrow */}
+                <div className="mt-10 text-center">
+                  <Link href="/money" className="kn-btn-secondary text-xs sm:text-sm font-bold py-3 px-6 inline-flex items-center gap-1.5 shadow-xs">
+                    <span>{language === "hi" ? "भुगतान और एस्क्रो देखें" : "View Payouts & Escrow"}</span>
+                    <span>➔</span>
+                  </Link>
                 </div>
               </div>
             </PageContainer>
