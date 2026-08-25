@@ -334,11 +334,13 @@ function BuyerHome({ user }: { user: SessionUser }) {
             </div>
           </div>
 
-          {/* Connected Money Pool Escrow Stepper (Collapsible Dropdown, Closed by Default) */}
+          {/* Connected Money Pool Escrow Stepper (Collapsible Dropdown, Closed by Default ONLY on Buyer Page) */}
           {active && poolView ? (
             <PoolCard
               view={poolView}
               lang={language}
+              collapsible={true}
+              defaultClosed={true}
               onPayBooking={() => {
                 payBooking(active.demandId);
                 setTick((n) => n + 1);
