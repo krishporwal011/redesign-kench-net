@@ -38,11 +38,13 @@ export default function ArtisanPage() {
 
 function ArtisanHome({ user }: { user: SessionUser }) {
   const { language, t } = useLanguage();
+  const hi = language === "hi";
   const [craft, setCraft] = useState<Craft>("bangles");
   const [colourFamily, setColourFamily] = useState<"ruby_red" | "blue">("ruby_red");
+  const [bangleSize, setBangleSize] = useState("2-6");
   const [qty, setQty] = useState(200);
   const [grade, setGrade] = useState<"A" | "B">("B");
-  const [saved, setSaved] = useState<{ colour: "ruby_red" | "blue"; qty: number } | null>(
+  const [saved, setSaved] = useState<{ colour: "ruby_red" | "blue"; qty: number; size: string } | null>(
     null,
   );
   const [piles, setPiles] = useState<Pile[]>([]);
@@ -70,7 +72,7 @@ function ArtisanHome({ user }: { user: SessionUser }) {
       householdId,
       locality,
       productFamily: craft === "pottery" ? "pottery_diyas" : craft === "textile" ? "textile_scarves" : "glass_bangle",
-      size: craft === "bangles" ? "2-6" : "Standard",
+      size: craft === "bangles" ? bangleSize : "Standard",
       colourFamily,
       finish: "plain_glossy",
       grade,
@@ -86,7 +88,7 @@ function ArtisanHome({ user }: { user: SessionUser }) {
     };
     saveExtraPile(pile);
     setPiles(loadPiles());
-    setSaved({ colour: colourFamily, qty });
+    setSaved({ colour: colourFamily, qty, size: bangleSize });
   }
 
   // Category-reactive Demands list
@@ -101,7 +103,7 @@ function ArtisanHome({ user }: { user: SessionUser }) {
       demandId: craft === "pottery" ? "DEM-POT-01" : "DEM-TEX-01",
       buyerName: "Wholesale Buyer",
       productFamily: craft === "pottery" ? "pottery" : "textile",
-      size: "Standard",
+      size: craft === "bangles" ? "2-6" : "Standard",
       colourFamily,
       grade: "A",
       quantityNeeded: craft === "pottery" ? 2500 : 1200,
@@ -122,7 +124,7 @@ function ArtisanHome({ user }: { user: SessionUser }) {
       householdId: user.householdId || "HH-01",
       locality: "Ramnagar",
       productFamily: craft === "pottery" ? "pottery_diyas" : craft === "textile" ? "textile_scarves" : "glass_bangle",
-      size: "Standard",
+      size: craft === "bangles" ? "2-6" : "Standard",
       colourFamily,
       finish: "plain_glossy",
       grade: "A",
@@ -163,7 +165,7 @@ function ArtisanHome({ user }: { user: SessionUser }) {
                 setCraft(e.target.value as Craft);
                 setSaved(null);
               }}
-              className="kn-field text-sm font-bold"
+              className="kn-field text-sm font-bold cursor-pointer"
             >
               <option value="bangles">{t("artisan.bangles")} (Glass Bangles)</option>
               <option value="pottery">{t("artisan.pottery")} (Terracotta Pottery)</option>
@@ -174,13 +176,14 @@ function ArtisanHome({ user }: { user: SessionUser }) {
           <section className="kn-card p-6 border-[#e4d9c9] bg-[#fdf8f4] shadow-md">
             <h2 className="text-lg font-extrabold text-[#1a1210]">
               {craft === "pottery"
-                ? (language === "hi" ? "मिट्टी के बंडल दर्ज करें" : "Declare Pottery Stock")
+                ? (hi ? "मिट्टी के बंडल दर्ज करें" : "Declare Pottery Stock")
                 : craft === "textile"
-                ? (language === "hi" ? "कपड़ा/टेक्सटाइल बंडल दर्ज करें" : "Declare Textile Stock")
+                ? (hi ? "कपड़ा/टेक्सटाइल बंडल दर्ज करें" : "Declare Textile Stock")
                 : t("artisan.addStock")}
             </h2>
             <p className="text-xs text-[#785d4f] mt-0.5">{t("artisan.addHint")}</p>
 
+            {/* Colour Selector */}
             <div className="mt-5">
               <p className="text-xs font-bold text-[#1a1210] uppercase tracking-wider mb-2">{t("artisan.colour")}</p>
               <div className="grid grid-cols-2 gap-2 bg-[#faf0e4] p-1 rounded-xl border border-[#e4d9c9]">
@@ -193,9 +196,9 @@ function ArtisanHome({ user }: { user: SessionUser }) {
                 >
                   <span className="kn-dot kn-dot-red" />
                   {craft === "pottery"
-                    ? (language === "hi" ? "टेराकोटा लाल" : "Terracotta Red")
+                    ? (hi ? "टेराकोटा लाल" : "Terracotta Red")
                     : craft === "textile"
-                    ? (language === "hi" ? "ज़री लाल" : "Zari Red")
+                    ? (hi ? "ज़री लाल" : "Zari Red")
                     : t("artisan.red")}
                 </button>
                 <button
@@ -207,14 +210,38 @@ function ArtisanHome({ user }: { user: SessionUser }) {
                 >
                   <span className="kn-dot kn-dot-blue" />
                   {craft === "pottery"
-                    ? (language === "hi" ? "क्ले नीला" : "Glazed Blue")
+                    ? (hi ? "क्ले नीला" : "Glazed Blue")
                     : craft === "textile"
-                    ? (language === "hi" ? "सिल्क नीला" : "Silk Blue")
+                    ? (hi ? "सिल्क नीला" : "Silk Blue")
                     : t("artisan.blue")}
                 </button>
               </div>
             </div>
 
+            {/* Bangle Size Selector (Visible for Glass Bangles) */}
+            {craft === "bangles" && (
+              <div className="mt-4">
+                <label className="block text-xs font-bold text-[#1a1210] uppercase tracking-wider mb-1.5">
+                  {hi ? "चूड़ी की साइज़ (Bangle Size)" : "Bangle Size"}
+                </label>
+                <div className="grid grid-cols-4 gap-2 bg-[#faf0e4] p-1 rounded-xl border border-[#e4d9c9]">
+                  {["2-6", "2-4", "2-2", "2-8"].map((sz) => (
+                    <button
+                      key={sz}
+                      type="button"
+                      onClick={() => setBangleSize(sz)}
+                      className={`py-2 rounded-lg text-xs font-mono font-extrabold transition min-h-[40px] ${
+                        bangleSize === sz ? "bg-[#790f26] text-white shadow-xs" : "text-[#523a2f] hover:bg-white/50"
+                      }`}
+                    >
+                      {sz}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Quantity Input */}
             <div className="mt-4">
               <label className="block text-xs font-bold text-[#1a1210] uppercase tracking-wider mb-1.5">{t("artisan.howMany")}</label>
               <input
@@ -226,6 +253,7 @@ function ArtisanHome({ user }: { user: SessionUser }) {
               />
             </div>
 
+            {/* Quality Grade Selector */}
             <div className="mt-4">
               <p className="text-xs font-bold text-[#1a1210] uppercase tracking-wider mb-1.5">{t("artisan.quality")}</p>
               <div className="grid grid-cols-2 gap-2 bg-[#faf0e4] p-1 rounded-xl border border-[#e4d9c9]">
@@ -248,7 +276,7 @@ function ArtisanHome({ user }: { user: SessionUser }) {
 
             {saved ? (
               <p className="mt-4 text-xs font-bold text-[#790f26] bg-[#fdf0f0] p-3 rounded-xl border border-[#790f26]/20">
-                Saved: {pileTitle(saved.colour, saved.qty, language)}. Buyer can see it.
+                ✅ Saved: {pileTitle(saved.colour, saved.qty, language)} {craft === "bangles" ? `· Size ${saved.size}` : ""}. Buyer can see it.
               </p>
             ) : null}
 
@@ -269,9 +297,9 @@ function ArtisanHome({ user }: { user: SessionUser }) {
           <section className="kn-card p-6 border-[#e4d9c9] bg-[#fdf8f4]">
             <h2 className="text-lg font-bold text-[#1a1210] border-b border-[#e4d9c9] pb-3 mb-4">
               {craft === "pottery"
-                ? (language === "hi" ? "मिट्टी के बंडलों की थोक मांगें" : "Wholesale Buyer Demands (Pottery)")
+                ? (hi ? "मिट्टी के बंडलों की थोक मांगें" : "Wholesale Buyer Demands (Pottery)")
                 : craft === "textile"
-                ? (language === "hi" ? "टेक्सटाइल बंडलों की थोक मांगें" : "Wholesale Buyer Demands (Textiles)")
+                ? (hi ? "टेक्सटाइल बंडलों की थोक मांगें" : "Wholesale Buyer Demands (Textiles)")
                 : t("artisan.buyerWants")}
             </h2>
             <div className="grid grid-cols-1 gap-3.5">
@@ -287,10 +315,10 @@ function ArtisanHome({ user }: { user: SessionUser }) {
                       {/* Prominent Color / Quantity Headline */}
                       <p className="text-base sm:text-lg font-black text-[#1a1210] leading-tight">
                         {colourWords(d.colourFamily, language)} · {d.quantityNeeded.toLocaleString("en-IN")}{" "}
-                        {language === "hi" ? "टुकड़े" : "pcs"}
+                        {hi ? "टुकड़े" : "pcs"}
                       </p>
                       <p className="text-xs text-[#785d4f] mt-0.5">
-                        Grade {d.grade} · {d.locality}
+                        {craft === "bangles" ? `Size ${d.size} · ` : ""}Grade {d.grade} · {d.locality}
                       </p>
                     </div>
                   </div>
@@ -332,6 +360,9 @@ function ArtisanHome({ user }: { user: SessionUser }) {
                       {/* Prominent Color & Quantity Headline */}
                       <p className="text-sm sm:text-base font-black text-[#1a1210] leading-tight">
                         {colourWords(pile.colourFamily, language)} · {pile.declaredQty.toLocaleString("en-IN")} pcs
+                      </p>
+                      <p className="text-[11px] text-[#785d4f] font-semibold mt-0.5">
+                        {craft === "bangles" ? `Size ${pile.size} · ` : ""}Grade {pile.grade}
                       </p>
                     </div>
                   </div>
