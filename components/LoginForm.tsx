@@ -22,10 +22,17 @@ export default function LoginForm() {
   const [pulseInputs, setPulseInputs] = useState(false);
   const { t } = useLanguage();
 
-  // Force clean empty state on component mount
+  // Enforce blank inputs on mount and periodically reset if browser autofills
   useEffect(() => {
     setPhone("");
     setCode("");
+
+    const timer = setTimeout(() => {
+      setPhone("");
+      setCode("");
+    }, 150);
+
+    return () => clearTimeout(timer);
   }, []);
 
   function triggerAuth(targetPhone: string, targetCode: string) {
@@ -35,7 +42,6 @@ export default function LoginForm() {
     const validUser = findUser(targetPhone, targetCode);
 
     if (validUser) {
-      // 900ms delivery truck drive across -> 300ms checkmark spring -> 400ms hold -> route push
       setTimeout(() => {
         setStatus("success");
       }, 950);
@@ -51,7 +57,6 @@ export default function LoginForm() {
         router.push(validUser.home);
       }, 1650);
     } else {
-      // Auth failure stall + shake animation
       setTimeout(() => {
         setStatus("error");
         setError(t("login.error"));
@@ -89,7 +94,11 @@ export default function LoginForm() {
         </p>
       </div>
 
+      {/* Hidden dummy inputs to trick Brave/Chrome/1Password autofill into filling hidden fields */}
       <form onSubmit={submit} autoComplete="off" className="space-y-4">
+        <input type="text" name="username" style={{ display: "none" }} tabIndex={-1} autoComplete="off" />
+        <input type="password" name="password" style={{ display: "none" }} tabIndex={-1} autoComplete="off" />
+
         {/* Phone Number Field */}
         <div>
           <label className="block text-xs font-bold text-[#1A1210] uppercase tracking-wider mb-1.5">
@@ -98,14 +107,16 @@ export default function LoginForm() {
           <motion.input
             animate={pulseInputs ? { scale: [1, 1.02, 1], backgroundColor: ["#FCF8F5", "#FBF7F1", "#FCF8F5"] } : {}}
             transition={{ duration: 0.3 }}
-            id="kanch_phone_input"
-            name="kanch_phone_input_no_autofill"
+            id="kanch_phone_field_v2"
+            name={`search_phone_${Math.random()}`}
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             inputMode="numeric"
-            autoComplete="new-password"
+            autoComplete="off"
+            aria-autocomplete="none"
             data-lpignore="true"
             data-form-type="other"
+            data-1p-ignore="true"
             placeholder=""
             className="w-full h-11 px-3.5 rounded-xl border-1.5 border-[#d0c2b0] bg-white text-base tracking-wide font-mono text-[#1A1210] focus:border-[#6F1B28] focus:ring-3 focus:ring-[#6F1B28]/12 outline-none transition-all duration-150"
             required
@@ -121,15 +132,17 @@ export default function LoginForm() {
           <motion.input
             animate={pulseInputs ? { scale: [1, 1.02, 1], backgroundColor: ["#FCF8F5", "#FBF7F1", "#FCF8F5"] } : {}}
             transition={{ duration: 0.3 }}
-            id="kanch_code_input"
-            name="kanch_code_input_no_autofill"
+            id="kanch_code_field_v2"
+            name={`search_code_${Math.random()}`}
             value={code}
             onChange={(e) => setCode(e.target.value)}
             inputMode="numeric"
             type="password"
-            autoComplete="new-password"
+            autoComplete="off"
+            aria-autocomplete="none"
             data-lpignore="true"
             data-form-type="other"
+            data-1p-ignore="true"
             placeholder=""
             className="w-full h-11 px-3.5 rounded-xl border-1.5 border-[#d0c2b0] bg-white text-base tracking-widest font-mono text-[#1A1210] focus:border-[#6F1B28] focus:ring-3 focus:ring-[#6F1B28]/12 outline-none transition-all duration-150"
             required
